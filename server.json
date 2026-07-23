@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.SWATGenX/swatgenx",
-  "description": "Watershed modeling for the conterminous United States. Search calibrated SWAT+ models, read calibration and held-out validation scores, query a national groundwater lithology inventory of 28.8 million depth intervals and a national PFAS monitoring inventory, and order and download SWAT+ watershed models built from NHDPlus HR hydrography and national datasets.",
+  "description": "Automated, calibrated SWAT+ watershed modeling and national hydrologic datasets for the U.S.",
   "repository": {
     "url": "https://github.com/SWATGenX/swatgenx-mcp",
     "source": "github"
