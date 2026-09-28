@@ -1,12 +1,12 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.SWATGenX/swatgenx",
-  "description": "Automated, calibrated SWAT+ watershed modeling and national hydrologic datasets for the U.S.",
+  "description": "SWAT+ watershed models for any river in the lower 48 states, with groundwater and PFAS data",
   "repository": {
     "url": "https://github.com/SWATGenX/swatgenx-mcp",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.1.0",
   "websiteUrl": "https://www.swatgenx.com/mcp-server",
   "remotes": [
     {

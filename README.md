@@ -1,59 +1,64 @@
 # SWATGenX MCP Server
 
-The agent-native front door to **[SWATGenX](https://www.swatgenx.com)** — automated,
-calibrated SWAT+ watershed modeling for the conterminous United States.
+The agent-native front door to **[SWATGenX](https://www.swatgenx.com)**: SWAT+ watershed models for any river in the
+lower 48 states, built in the cloud from national datasets, with calibration as a separate step you run when you are
+ready.
 
-Add it to Claude or any MCP client and a continental watershed-modeling platform becomes a
-set of callable tools: search calibrated SWAT+ models, read calibration and held-out
-validation scores, query a national groundwater lithology inventory of ~28.8 million depth
-intervals, query a national PFAS monitoring inventory, and — with an API key — order and
-download watershed models.
+Add it to Claude or any MCP client, and an agent can search the example-model catalog with its calibration and held-out
+validation scores, query a national groundwater well inventory and a national PFAS monitoring inventory, preview what a
+model of a watershed would contain, read the documentation, and order, track and download a real SWAT+ build under the
+same allocations as the web app.
 
 - **Endpoint:** `https://www.swatgenx.com/mcp`
-- **Transport:** streamable HTTP
-- **Full documentation & client setup:** https://www.swatgenx.com/mcp-server
+- **Transport:** streamable HTTP (remote; nothing to install)
+- **Documentation and client setup:** https://www.swatgenx.com/mcp-server
 
 ## Connect
 
-```json
-{
-  "mcpServers": {
-    "swatgenx": {
-      "type": "http",
-      "url": "https://www.swatgenx.com/mcp"
-    }
-  }
-}
+```bash
+claude mcp add --transport http swatgenx https://www.swatgenx.com/mcp
 ```
 
-Six tools need no credentials. To order or download models, send your API key in the
-`X-SWATGenX-Api-Key` header (free key with an account at swatgenx.com).
+or, in a client's JSON config:
+
+```json
+{ "mcpServers": { "swatgenx": { "type": "http", "url": "https://www.swatgenx.com/mcp" } } }
+```
+
+Every call needs a SWATGenX sign-in or an API key. Clients that support MCP authorization sign in with OAuth 2.1 through
+swatgenx.com; clients that set headers can send `Authorization: Bearer <your API key>`.
 
 ## Tools
 
-| Tool | What it does | Needs |
+From 15 October 2026, the model, data and order tools are part of the paid plans; the documentation tools stay open to
+any account.
+
+| Tool | Title | Access from 15 Oct 2026 |
 |---|---|---|
-| `search_swat_models` | Browse the example-model catalog (state, size, calibration status) | — |
-| `get_model_calibration` | Calibration and held-out validation NSE / PBIAS for one model | — |
-| `query_groundwater` | Nearest wells and lithology from the national inventory | — |
-| `query_pfas` | National PFAS monitoring inventory by state or analyte | — |
-| `request_model` | Preview what SWATGenX would build for a gauge or HUC12 outlet | — |
-| `get_access_info` | The access ladder and your current tier | — |
-| `order_model` | Order a real SWAT+ build | API key |
-| `get_order_status` | Track a build order to completion | API key |
-| `list_my_models` | List your build orders | API key |
-| `download_model` | Mint a 24-hour download link | API key |
+| `search_docs` | Search the SWATGenX documentation | any account |
+| `get_doc` | Read a SWATGenX documentation chapter | any account |
+| `get_engine_info` | Get SWAT+ engine source, build guide and toolchain | any account |
+| `get_access_info` | Get access tier and allocations | any account |
+| `search_swat_models` | Search SWAT+ example models | paid plan |
+| `get_model_calibration` | Get model calibration results | paid plan |
+| `query_groundwater` | Query national groundwater wells | paid plan |
+| `query_pfas` | Query PFAS monitoring (US or worldwide) | paid plan |
+| `request_model` | Preview a watershed model build | paid plan |
+| `order_model` | Order a SWAT+ watershed model | paid plan |
+| `get_order_status` | Get build order status | paid plan |
+| `list_my_models` | List your model orders | paid plan |
+| `download_model` | Get a model download link | paid plan |
 
 ## About
 
-SWATGenX builds physically based SWAT+ and coupled SWAT+/MODFLOW 6 models from NHDPlus HR
-hydrography, gSSURGO soils, NLCD land cover and PRISM climate, and calibrates them against
-USGS streamflow. The national groundwater inventory this server queries is described in a
-preprint under open review at *Earth System Science Data*
-([doi:10.5194/essd-2026-527](https://doi.org/10.5194/essd-2026-527)).
+SWATGenX builds SWAT+ models for a USGS gauge, a HUC12 outlet or a HUC8 basin from NHDPlus HR hydrography, gSSURGO
+soils, NLCD land cover and PRISM weather, with an optional steady-state MODFLOW 6 groundwater model. Calibration against
+USGS streamflow is a separate step you run when you are ready. Its engine runs SWAT+ and MODFLOW 6 two-way, daily.
 
-The server implementation lives in the main SWATGenX repository; this repository holds the
-registry manifest (`server.json`) and the publish workflow.
+The national groundwater inventory is described in [doi:10.5194/essd-2026-527](https://doi.org/10.5194/essd-2026-527).
+
+The server implementation lives in the main SWATGenX repository; this repository holds the registry manifest
+(`server.json`) and the publish workflow.
 
 ## License
 
