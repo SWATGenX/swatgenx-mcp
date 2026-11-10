@@ -25,8 +25,9 @@ or, in a client's JSON config:
 { "mcpServers": { "swatgenx": { "type": "http", "url": "https://www.swatgenx.com/mcp" } } }
 ```
 
-Every call needs a SWATGenX sign-in or an API key. Clients that support MCP authorization sign in with OAuth 2.1 through
-swatgenx.com; clients that set headers can send `Authorization: Bearer <your API key>`.
+Connecting and listing the tools need no sign-in. Every tool call needs a SWATGenX sign-in or an API key: clients that
+support MCP authorization sign in with OAuth 2.1 through swatgenx.com; clients that set headers can send
+`Authorization: Bearer <your API key>`.
 
 ## Tools
 
